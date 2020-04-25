@@ -7,6 +7,7 @@ public class PikminManager : MonoBehaviour
     [Header("Targeting")]
     [SerializeField] private Transform target = default;
     [SerializeField] private PikminController controller = default;
+    [SerializeField] private float selectionRadius = 1;
     private List<Pikmin> allPikmin = new List<Pikmin>();
 
     [Header("Spawning")]
@@ -30,7 +31,7 @@ public class PikminManager : MonoBehaviour
         {
             foreach (Pikmin pikmin in allPikmin)
             {
-                if (pikmin.state == Pikmin.State.Idle && Vector3.Distance(pikmin.transform.position, controller.hitPoint) < 4)
+                if (pikmin.state != Pikmin.State.Follow && Vector3.Distance(pikmin.transform.position, controller.hitPoint) < selectionRadius)
                     pikmin.SetTarget(target, 0.25f);
 
             }

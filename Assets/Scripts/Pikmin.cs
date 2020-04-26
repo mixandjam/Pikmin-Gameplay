@@ -16,7 +16,12 @@ public class Pikmin : MonoBehaviour
     }
     public void SetTarget(Transform target, float updateTime = 1f)
     {
+        if (state == State.Interact)
+            objective.ReleasePikmin();
+
         state = State.Follow;
+        agent.stoppingDistance = 0.5f;
+
         if (updateTarget != null)
             StopCoroutine(updateTarget);
 
@@ -38,6 +43,7 @@ public class Pikmin : MonoBehaviour
         if (updateTarget != null)
             StopCoroutine(updateTarget);
 
+        agent.stoppingDistance = 0f;
         agent.enabled = false;
         transform.DOJump(target, 2, 1, time).SetEase(Ease.Linear).OnComplete(() =>
         {

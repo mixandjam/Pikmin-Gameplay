@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class PikminEvent : UnityEvent<int> { }
+
 [RequireComponent(typeof(PikminController))]
 public class PikminManager : MonoBehaviour
 {
@@ -8,42 +13,53 @@ public class PikminManager : MonoBehaviour
     [SerializeField] private Transform target = default;
     [SerializeField] private PikminController controller = default;
     [SerializeField] private float selectionRadius = 1;
-    private List<Pikmin> allPikmin = new List<Pikmin>();
 
     [Header("Spawning")]
-    [SerializeField] private int spawnNum = 0;
     [SerializeField] private Pikmin pikminPrefab = default;
-    [SerializeField] private Vector3 spawnPosition = Vector3.zero;
+
+    [Header("Events")]
+    public PikminEvent pikminFollow;
+
+
+    private List<Pikmin> allPikmin = new List<Pikmin>();
+    private int controlledPikmin = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < spawnNum; i++)
+        PikminSpawner[] spawners = FindObjectsOfType(typeof(PikminSpawner)) as PikminSpawner[];
+        foreach (PikminSpawner spawner in spawners)
         {
-            Pikmin newPikmin = Instantiate(pikminPrefab);
-            newPikmin.transform.position = spawnPosition + Random.insideUnitSphere;
-            allPikmin.Add(newPikmin);
+            spawner.SpawnPikmin(pikminPrefab, ref allPikmin);
         }
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(1))
         {
             foreach (Pikmin pikmin in allPikmin)
             {
-                if (pikmin.state != Pikmin.State.Follow && Vector3.Distance(pikmin.transform.position, controller.hitPoint) < selectionRadius)
-                    pikmin.SetTarget(target, 0.25f);
-
+                if (Vector3.Distance(pikmin.transform.position, controller.hitPoint) < selectionRadius)
+                {
+                    if (pikmin.state != Pikmin.State.Follow)
+                    {
+                        pikmin.SetTarget(target, 0.25f);
+                        controlledPikmin++;
+                        pikminFollow.Invoke(controlledPikmin);
+                    }
+                }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetMouseButtonDown(0))
         {
             foreach (Pikmin pikmin in allPikmin)
             {
                 if (pikmin.state == Pikmin.State.Follow)
                 {
-                    float time = 0.1f * Vector3.Distance(pikmin.transform.position, controller.hitPoint);
-                    pikmin.Throw(controller.hitPoint, time);
+                    float time = Vector3.Distance(pikmin.transform.position, controller.hitPoint) / 5f;
+                    pikmin.Throw(controller.hitPoint, 2);
+                    controlledPikmin--;
+                    pikminFollow.Invoke(controlledPikmin);
                     break;
                 }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PikminController : MonoBehaviour
 {
-    public Vector3 hitPoint;
+    [HideInInspector] public Vector3 hitPoint = Vector3.zero;
     [SerializeField] private Transform follow = default;
     [SerializeField] private Vector3 followOffset = Vector3.zero;
     [SerializeField] private Transform target = default;
@@ -33,6 +33,7 @@ public class PikminController : MonoBehaviour
         {
             hitPoint = hit.point;
             target.position = hit.point + targetOffset;
+            target.up = Vector3.Lerp(target.up, hit.normal, .3f);
             for (int i = 0; i < linePoints; i++)
             {
                 Vector3 linePos = Vector3.Lerp(follow.position + followOffset, target.position, (float)i / 5f);

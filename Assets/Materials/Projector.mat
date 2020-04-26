@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
+  m_Name: Projector
   m_Shader: {fileID: 4800000, guid: 38f260d01e64cd4408b5921183f116ce, type: 3}
   m_ShaderKeywords: _UnityFogEnable
   m_LightmapFlags: 4

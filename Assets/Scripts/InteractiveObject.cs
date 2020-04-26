@@ -23,7 +23,7 @@ public class InteractiveObject : MonoBehaviour
         interactText.enabled = false;
     }
 
-    public bool AssignPikmin()
+    public void AssignPikmin()
     {
         currentPikmin++;
         interactText.enabled = true;
@@ -31,8 +31,6 @@ public class InteractiveObject : MonoBehaviour
 
         if (currentPikmin == pikminNeeded)
             Interact();
-
-        return true;
     }
     public void ReleasePikmin()
     {

@@ -66,4 +66,14 @@ public class PikminManager : MonoBehaviour
             }
         }
     }
+    public void FinishInteraction(InteractiveObject objective)
+    {
+        foreach (Pikmin pikmin in allPikmin)
+        {
+            if (pikmin.objective == objective)
+            {
+                pikmin.SetIdle();
+            }
+        }
+    }
 }

@@ -9,7 +9,7 @@ public class Pikmin : MonoBehaviour
     private NavMeshAgent agent = default;
     private Coroutine updateTarget = default;
     public State state = default;
-    InteractiveObject objective;
+    public InteractiveObject objective;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -17,7 +17,11 @@ public class Pikmin : MonoBehaviour
     public void SetTarget(Transform target, float updateTime = 1f)
     {
         if (state == State.Interact)
+        {
+            transform.parent = null;
+            agent.enabled = true;
             objective.ReleasePikmin();
+        }
 
         state = State.Follow;
         agent.stoppingDistance = 0.5f;
@@ -52,6 +56,13 @@ public class Pikmin : MonoBehaviour
         });
     }
 
+    public void SetIdle()
+    {
+        agent.enabled = true;
+        transform.parent = null;
+        state = State.Idle;
+    }
+
     void CheckInteraction()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f);
@@ -64,13 +75,20 @@ public class Pikmin : MonoBehaviour
             if (collider.GetComponent<InteractiveObject>())
             {
                 objective = collider.GetComponent<InteractiveObject>();
-                if (objective.AssignPikmin())
-                {
-                    state = State.Interact;
-                    agent.SetDestination(objective.GetPositon());
-                    break;
-                }
+                objective.AssignPikmin();
+                StartCoroutine(GetInPosition());
+
+                break;
             }
+        }
+
+        IEnumerator GetInPosition()
+        {
+            agent.SetDestination(objective.GetPositon());
+            yield return new WaitUntil(() => agent.IsDone());
+            agent.enabled = false;
+            state = State.Interact;
+            transform.parent = objective.transform;
         }
     }
 }

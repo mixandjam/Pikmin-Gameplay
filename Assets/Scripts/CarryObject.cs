@@ -8,12 +8,14 @@ public class CarryObject : InteractiveObject
     [SerializeField] private Transform destination = default;
     private NavMeshAgent agent = default;
     private Coroutine destinationRoutine = default;
+    private float originalAgentSpeed;
 
     public override void Initialize()
     {
         base.Initialize();
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
+        originalAgentSpeed = agent.speed;
     }
     public override void Interact()
     {
@@ -33,9 +35,16 @@ public class CarryObject : InteractiveObject
         }
 
     }
+
+    public override void UpdateSpeed(int extra)
+    {
+        agent.speed = (extra > 0) ? originalAgentSpeed + (extra * .2f) : originalAgentSpeed;
+    }
+
     public override void StopInteract()
     {
         agent.enabled = false;
-        StopCoroutine(destinationRoutine);
+        if(destinationRoutine != null)
+            StopCoroutine(destinationRoutine);
     }
 }

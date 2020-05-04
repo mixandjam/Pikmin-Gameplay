@@ -31,6 +31,9 @@ public class InteractiveObject : MonoBehaviour
 
         if (currentPikmin == pikminNeeded)
             Interact();
+
+        if (currentPikmin > pikminNeeded)
+            UpdateSpeed(currentPikmin - pikminNeeded);
     }
     public void ReleasePikmin()
     {
@@ -58,6 +61,11 @@ public class InteractiveObject : MonoBehaviour
 
     }
     public virtual void StopInteract()
+    {
+
+    }
+
+    public virtual void UpdateSpeed(int extra)
     {
 
     }

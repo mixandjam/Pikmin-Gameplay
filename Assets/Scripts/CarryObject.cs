@@ -9,12 +9,13 @@ public class CarryObject : InteractiveObject
     private NavMeshAgent agent = default;
     private Coroutine destinationRoutine = default;
     private float originalAgentSpeed;
+    [SerializeField] private Vector3 destinationOffset;
 
     public override void Initialize()
     {
         base.Initialize();
         agent = GetComponent<NavMeshAgent>();
-        agent.enabled = false;
+        //agent.enabled = false;
         originalAgentSpeed = agent.speed;
     }
     public override void Interact()
@@ -43,8 +44,14 @@ public class CarryObject : InteractiveObject
 
     public override void StopInteract()
     {
-        agent.enabled = false;
+        //agent.enabled = false;
         if(destinationRoutine != null)
             StopCoroutine(destinationRoutine);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(destination.position + destinationOffset, .2f);
     }
 }

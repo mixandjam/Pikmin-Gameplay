@@ -6172,6 +6172,8 @@ MonoBehaviour:
   agent: {fileID: 0}
   state: 0
   objective: {fileID: 0}
+  isFlying: 0
+  isGettingIntoPosition: 0
 --- !u!195 &3944059097806487155
 NavMeshAgent:
   m_ObjectHideFlags: 0

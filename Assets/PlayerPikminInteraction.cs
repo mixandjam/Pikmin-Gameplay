@@ -24,7 +24,8 @@ public class PlayerPikminInteraction : MonoBehaviour
 
     public void Throw(Vector3 hitPoint)
     {
-        transform.LookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z));
+        transform.DOLookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z), .1f);
+        //transform.LookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z));
         anim.SetTrigger("throw");
     }
 }

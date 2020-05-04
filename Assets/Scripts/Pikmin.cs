@@ -25,6 +25,8 @@ public class Pikmin : MonoBehaviour
     }
     public void SetTarget(Transform target, float updateTime = 1f)
     {
+        agent.acceleration = 8;
+
         if (state == State.Interact)
         {
             transform.parent = null;
@@ -70,6 +72,7 @@ public class Pikmin : MonoBehaviour
         transform.DOJump(target, 2, 1, time).SetEase(Ease.Linear).OnComplete(() =>
         {
             agent.angularSpeed = 2000;
+            agent.acceleration = 25;
             agent.enabled = true;
             isFlying = false;
             CheckInteraction();

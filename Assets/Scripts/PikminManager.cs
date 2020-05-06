@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 [System.Serializable] public class PikminEvent : UnityEvent<int> { }
 [System.Serializable] public class PlayerEvent : UnityEvent<Vector3> { }
@@ -10,6 +12,7 @@ using UnityEngine.Events;
 public class PikminManager : MonoBehaviour
 {
     private MovementInput charMovement;
+    private Pikmin currentPikmin;
 
     [Header("Positioning")]
     public Transform pikminThrowPosition;
@@ -24,6 +27,7 @@ public class PikminManager : MonoBehaviour
 
     [Header("Events")]
     public PikminEvent pikminFollow;
+    //public PlayerEvent pikminHold;
     public PlayerEvent pikminThrow;
 
     private List<Pikmin> allPikmin = new List<Pikmin>();
@@ -43,9 +47,10 @@ public class PikminManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             Time.timeScale = Time.timeScale == 1 ? .2f : 1;
-        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
 
         if (Input.GetMouseButton(1))
         {
@@ -66,23 +71,27 @@ public class PikminManager : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0))
         {
             foreach (Pikmin pikmin in allPikmin)
             {
                 if (pikmin.state == Pikmin.State.Follow && Vector3.Distance(pikmin.transform.position, charMovement.transform.position) < 2)
                 {
-                    pikmin.transform.position = pikminThrowPosition.position;
-                    pikmin.Throw(controller.hitPoint, .5f);
+                    pikmin.agent.enabled = false;
+                    float delay = .05f;
+                    pikmin.transform.DOMove(pikminThrowPosition.position,delay);
+
+                    pikmin.Throw(controller.hitPoint, .5f, delay);
                     controlledPikmin--;
 
                     pikminThrow.Invoke(controller.hitPoint);
                     pikminFollow.Invoke(controlledPikmin);
                     break;
                 }
-
             }
         }
+
     }
     public void FinishInteraction(InteractiveObject objective)
     {

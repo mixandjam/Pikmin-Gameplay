@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
-using System;
 
 [SelectionBase]
 public class Pikmin : MonoBehaviour
@@ -32,10 +31,15 @@ public class Pikmin : MonoBehaviour
             transform.parent = null;
             agent.enabled = true;
             objective.ReleasePikmin();
+            objective = null;
         }
 
         state = State.Follow;
         agent.stoppingDistance = 1f;
+
+        visualHandler.activationParticle.Play();
+        visualHandler.leafParticle.Clear();
+        visualHandler.leafParticle.Stop();
 
         if (updateTarget != null)
             StopCoroutine(updateTarget);
@@ -53,7 +57,7 @@ public class Pikmin : MonoBehaviour
             }
         }
     }
-    public void Throw(Vector3 target, float time)
+    public void Throw(Vector3 target, float time, float delay)
     {
         isFlying = true;
 
@@ -69,7 +73,7 @@ public class Pikmin : MonoBehaviour
 
         //Vector3 finalTarget = (Vector3.Distance(transform.position, target) > 3) ? (transform.position
 
-        transform.DOJump(target, 2, 1, time).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOJump(target, 2, 1, time).SetDelay(delay).SetEase(Ease.Linear).OnComplete(() =>
         {
             agent.angularSpeed = 2000;
             agent.acceleration = 25;
@@ -81,21 +85,27 @@ public class Pikmin : MonoBehaviour
         });
 
         transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
-        transform.GetChild(0).DORotate(new Vector3(360 * 3,0,0), time, RotateMode.LocalAxisAdd);
+        transform.GetChild(0).DORotate(new Vector3(360 * 3, 0, 0), time, RotateMode.LocalAxisAdd).SetDelay(delay);
     }
 
     public void SetPikminTrail(bool on)
     {
         visualHandler.trail.emitting = on;
-        if(on)
+        if (on)
+        {
+            visualHandler.trail.Clear();
             visualHandler.particleTrail.Play();
+        }
         else
+        {
             visualHandler.particleTrail.Stop();
+        }
     }
 
     internal void Reaction()
     {
-        transform.DOJump(transform.position, .3f, 1, .2f);
+        transform.DOJump(transform.position, .4f, 1, .3f);
+        transform.DOPunchScale(-Vector3.up/2, .3f, 10, 1).SetDelay(Random.Range(0,.1f));
     }
 
     public void SetIdle()
@@ -103,6 +113,7 @@ public class Pikmin : MonoBehaviour
         agent.enabled = true;
         transform.parent = null;
         state = State.Idle;
+        visualHandler.leafParticle.Play();
     }
 
     void CheckInteraction()
@@ -114,13 +125,17 @@ public class Pikmin : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.GetComponent<InteractiveObject>())
+            if (collider.GetComponent<InteractiveObject>() && collider.GetComponent<NavMeshAgent>().enabled)
             {
                 objective = collider.GetComponent<InteractiveObject>();
                 objective.AssignPikmin();
                 StartCoroutine(GetInPosition());
 
                 break;
+            }
+            else
+            {
+                visualHandler.leafParticle.Play();
             }
         }
 
@@ -132,9 +147,12 @@ public class Pikmin : MonoBehaviour
             yield return new WaitUntil(() => agent.IsDone());
             agent.enabled = false;
             state = State.Interact;
-            transform.parent = objective.transform;
 
-            transform.DOLookAt(new Vector3(objective.transform.position.x, transform.position.y, objective.transform.position.z), .2f);
+            if (objective != null)
+            {
+                transform.parent = objective.transform;
+                transform.DOLookAt(new Vector3(objective.transform.position.x, transform.position.y, objective.transform.position.z), .2f);
+            }
 
             isGettingIntoPosition = false;
         }

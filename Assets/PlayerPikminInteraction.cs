@@ -13,6 +13,7 @@ public class PlayerPikminInteraction : MonoBehaviour
     {
         pikminManager = FindObjectOfType<PikminManager>();
         pikminManager.pikminThrow.AddListener((x) => Throw(x));
+        //pikminManager.pikminHold.AddListener((x) => Hold(x));
 
         anim = GetComponent<Animator>();
     }
@@ -22,10 +23,15 @@ public class PlayerPikminInteraction : MonoBehaviour
         
     }
 
+    //public void Hold(Vector3 hitPoint)
+    //{
+    //    transform.LookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z));
+    //}
+
     public void Throw(Vector3 hitPoint)
     {
-        transform.DOLookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z), .1f);
-        //transform.LookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z));
+        //transform.DOLookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z), .05f);
+        transform.LookAt(new Vector3(hitPoint.x, transform.position.y, hitPoint.z));
         anim.SetTrigger("throw");
     }
 }

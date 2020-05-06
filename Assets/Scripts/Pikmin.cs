@@ -15,12 +15,14 @@ public class Pikmin : MonoBehaviour
     public InteractiveObject objective;
     public bool isFlying;
     public bool isGettingIntoPosition;
+    private Animator anim;
 
     private PikminVisualHandler visualHandler;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         visualHandler = GetComponent<PikminVisualHandler>();
+        anim = GetComponent<Animator>();
     }
     public void SetTarget(Transform target, float updateTime = 1f)
     {
@@ -85,7 +87,8 @@ public class Pikmin : MonoBehaviour
         });
 
         transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
-        transform.GetChild(0).DORotate(new Vector3(360 * 3, 0, 0), time, RotateMode.LocalAxisAdd).SetDelay(delay);
+        visualHandler.model.DOLocalRotate(new Vector3(360 * 3, 0, 0), time, RotateMode.LocalAxisAdd).SetDelay(delay);
+
     }
 
     public void SetPikminTrail(bool on)

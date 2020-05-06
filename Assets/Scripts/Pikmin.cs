@@ -61,8 +61,6 @@ public class Pikmin : MonoBehaviour
     {
         isFlying = true;
 
-        agent.angularSpeed = 0;
-
         state = State.Idle;
         if (updateTarget != null)
             StopCoroutine(updateTarget);
@@ -75,7 +73,6 @@ public class Pikmin : MonoBehaviour
 
         transform.DOJump(target, 2, 1, time).SetDelay(delay).SetEase(Ease.Linear).OnComplete(() =>
         {
-            agent.angularSpeed = 2000;
             agent.enabled = true;
             isFlying = false;
             CheckInteraction();
@@ -133,11 +130,10 @@ public class Pikmin : MonoBehaviour
 
                 break;
             }
-            else
-            {
-                visualHandler.leafParticle.Play();
-            }
         }
+
+        if(objective == null)
+            visualHandler.leafParticle.Play();
 
         IEnumerator GetInPosition()
         {

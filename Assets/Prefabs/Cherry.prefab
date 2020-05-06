@@ -253,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactText: {fileID: 1103595129497117859}
   pikminNeeded: 2
-  radius: 0.77
+  radius: 0.6
   destination: {fileID: 0}
   destinationOffset: {x: 0, y: -3.18, z: 0}
   captureColor: {r: 4, g: 0, b: 0, a: 1}
@@ -268,7 +268,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0.61, z: 0}
 --- !u!195 &4160443267889499630
 NavMeshAgent:
@@ -279,12 +279,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 7628738084953084565}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.4
+  m_Radius: 0.35
   m_Speed: 2
   m_Acceleration: 13
   avoidancePriority: 1
   m_AngularSpeed: 1
-  m_StoppingDistance: 0.35
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

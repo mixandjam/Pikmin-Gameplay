@@ -6,6 +6,8 @@ using DG.Tweening;
 public class DestinationScript : MonoBehaviour
 {
     private Renderer renderer;
+    private AudioSource audio;
+
     [ColorUsage(true,true)]
     public Color originalColor,captureColor;
     public Vector3 capturePointOffset;
@@ -16,8 +18,16 @@ public class DestinationScript : MonoBehaviour
     public ParticleSystem smokeParticle;
     public ParticleSystem capsuleParticle;
 
+    [Space]
+    [Header("Sounds")]
+    public AudioClip suckSound;
+    public AudioClip collectSound;
+
+    public bool active = true;
+
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         renderer = GetComponent<Renderer>();
     }
 
@@ -28,11 +38,22 @@ public class DestinationScript : MonoBehaviour
 
     public void StartCapture()
     {
+        if (!active)
+            return;
+
+        audio.pitch = 1.5f;
+        audio.PlayOneShot(suckSound);
         captureParticle.Play();
     }
 
     public void FinishCapture()
     {
+        if (!active)
+            return;
+
+        audio.pitch = 1;
+        audio.PlayOneShot(collectSound);
+
         storeParticle.Play();
         smokeParticle.Play();
         capsuleParticle.Play();

@@ -10,7 +10,6 @@ public class InterfaceManager : MonoBehaviour
 
     void Start()
     {
-
         pikminManager.pikminFollow.AddListener((x) => UpdatePikminNumber(x));
     }
 

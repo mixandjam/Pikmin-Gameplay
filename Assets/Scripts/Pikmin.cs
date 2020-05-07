@@ -17,6 +17,12 @@ public class Pikmin : MonoBehaviour
     public bool isGettingIntoPosition;
     private Animator anim;
 
+    public PikminEvent OnStartFollow;
+    public PikminEvent OnStartThrow;
+    public PikminEvent OnEndThrow;
+    public PikminEvent OnStartCarry;
+    public PikminEvent OnEndCarry;
+
     private PikminVisualHandler visualHandler;
     private void Awake()
     {
@@ -37,9 +43,7 @@ public class Pikmin : MonoBehaviour
         state = State.Follow;
         agent.stoppingDistance = 1f;
 
-        visualHandler.activationParticle.Play();
-        visualHandler.leafParticle.Clear();
-        visualHandler.leafParticle.Stop();
+        OnStartFollow.Invoke(0);
 
         if (updateTarget != null)
             StopCoroutine(updateTarget);
@@ -59,17 +63,16 @@ public class Pikmin : MonoBehaviour
     }
     public void Throw(Vector3 target, float time, float delay)
     {
-        isFlying = true;
+        OnStartThrow.Invoke(0);
 
+        isFlying = true;
         state = State.Idle;
+
         if (updateTarget != null)
             StopCoroutine(updateTarget);
 
         agent.stoppingDistance = 0f;
         agent.enabled = false;
-        SetPikminTrail(true);
-
-        //Vector3 finalTarget = (Vector3.Distance(transform.position, target) > 3) ? (transform.position
 
         transform.DOJump(target, 2, 1, time).SetDelay(delay).SetEase(Ease.Linear).OnComplete(() =>
         {
@@ -77,7 +80,7 @@ public class Pikmin : MonoBehaviour
             isFlying = false;
             CheckInteraction();
 
-            SetPikminTrail(false);
+            OnEndThrow.Invoke(0);
         });
 
         transform.LookAt(new Vector3(target.x, transform.position.y, target.z));
@@ -85,32 +88,21 @@ public class Pikmin : MonoBehaviour
 
     }
 
-    public void SetPikminTrail(bool on)
+    public void SetCarrying(bool on)
     {
-        visualHandler.trail.emitting = on;
         if (on)
-        {
-            visualHandler.trail.Clear();
-            visualHandler.particleTrail.Play();
-        }
+            OnStartCarry.Invoke(0);
         else
-        {
-            visualHandler.particleTrail.Stop();
-        }
-    }
-
-    internal void Reaction()
-    {
-        transform.DOJump(transform.position, .4f, 1, .3f);
-        transform.DOPunchScale(-Vector3.up/2, .3f, 10, 1).SetDelay(Random.Range(0,.1f));
+            OnEndCarry.Invoke(0);
     }
 
     public void SetIdle()
     {
+        objective = null;
         agent.enabled = true;
         transform.parent = null;
         state = State.Idle;
-        visualHandler.leafParticle.Play();
+        OnEndThrow.Invoke(0);
     }
 
     void CheckInteraction()
@@ -132,8 +124,7 @@ public class Pikmin : MonoBehaviour
             }
         }
 
-        if(objective == null)
-            visualHandler.leafParticle.Play();
+        OnEndThrow.Invoke(0);
 
         IEnumerator GetInPosition()
         {

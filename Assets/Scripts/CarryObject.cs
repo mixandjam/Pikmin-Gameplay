@@ -35,6 +35,8 @@ public class CarryObject : InteractiveObject
 
         IEnumerator GetInPosition()
         {
+            (FindObjectOfType(typeof(PikminManager)) as PikminManager).StartIntetaction(this);
+
             agent.avoidancePriority = 50;
             agent.isStopped = false;
             agent.SetDestination(destination.Point());

@@ -63,7 +63,6 @@ public class PikminManager : MonoBehaviour
                         if (pikmin.isFlying || pikmin.isGettingIntoPosition)
                             return;
 
-                        pikmin.Reaction();
                         pikmin.SetTarget(target, 0.25f);
                         controlledPikmin++;
                         pikminFollow.Invoke(controlledPikmin);
@@ -99,7 +98,19 @@ public class PikminManager : MonoBehaviour
         {
             if (pikmin.objective == objective)
             {
+                pikmin.SetCarrying(false);
                 pikmin.SetIdle();
+            }
+        }
+    }
+
+    public void StartIntetaction(InteractiveObject objective)
+    {
+        foreach (Pikmin pikmin in allPikmin)
+        {
+            if (pikmin.objective == objective)
+            {
+                pikmin.SetCarrying(true);
             }
         }
     }

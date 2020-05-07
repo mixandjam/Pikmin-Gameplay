@@ -46,6 +46,10 @@ public class CarryObject : InteractiveObject
 
             (FindObjectOfType(typeof(PikminManager)) as PikminManager).FinishInteraction(this);
 
+            //Delete UI
+            if(fractionObject!=null)
+                Destroy(fractionObject);
+
             //Capture Animation
             float time = 1.3f;
             Sequence s = DOTween.Sequence();
@@ -70,6 +74,12 @@ public class CarryObject : InteractiveObject
         agent.isStopped = true;
         if(destinationRoutine != null)
             StopCoroutine(destinationRoutine);
+    }
+
+    private void Update()
+    {
+        if(fractionObject != null)
+            fractionObject.transform.position = Camera.main.WorldToScreenPoint(transform.position + uiOffset);
     }
 
 }

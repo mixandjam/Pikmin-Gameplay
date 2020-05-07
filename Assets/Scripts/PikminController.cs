@@ -7,7 +7,7 @@ public class PikminController : MonoBehaviour
     [HideInInspector] public Vector3 hitPoint = Vector3.zero;
     [SerializeField] private Transform follow = default;
     [SerializeField] private Vector3 followOffset = Vector3.zero;
-    [SerializeField] private Transform target = default;
+    public Transform target = default;
     [SerializeField] private Vector3 targetOffset = Vector3.zero;
     private Camera cam = default;
     private LineRenderer line = default;

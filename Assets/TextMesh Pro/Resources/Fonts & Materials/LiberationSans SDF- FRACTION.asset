@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LiberationSans SDF Material
   m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: UNDERLAY_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -46,10 +46,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 1024
     - _TextureWidth: 1024
-    - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlayDilate: 0.042
+    - _UnderlayOffsetX: 0.257
+    - _UnderlayOffsetY: -0.705
+    - _UnderlaySoftness: 0.198
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -57,7 +57,7 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -69,9 +69,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LiberationSans SDF
+  m_Name: LiberationSans SDF- FRACTION
   m_EditorClassIdentifier: 
-  hashCode: 231247347
+  hashCode: -1215511340
   material: {fileID: 2180264}
   materialHashCode: -1183942120
   m_Version: 1.1.0

@@ -157,4 +157,10 @@ public class PikminManager : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(controller.target.position, selectionRadius);
+    }
+
 }

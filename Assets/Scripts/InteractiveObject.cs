@@ -1,17 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Text = TMPro.TMP_Text;
+﻿using UnityEngine;
+using TMPro;
+using DG.Tweening;
 
 public class InteractiveObject : MonoBehaviour
 {
+    [Header("UI")]
+    public GameObject fractionPrefab;
+    public Vector3 uiOffset;
+    public Transform canvas;
 
-    [Header("Connections")]
-    [SerializeField] Text interactText = default;
     [Header("Variables")]
     [SerializeField] private int pikminNeeded = 1;
     public float radius = 1;
     private int currentPikmin = 0;
+
+    [HideInInspector]
+    public GameObject fractionObject;
 
     private void Awake()
     {
@@ -20,14 +24,20 @@ public class InteractiveObject : MonoBehaviour
 
     public virtual void Initialize()
     {
-        interactText.enabled = false;
+        fractionObject = Instantiate(fractionPrefab, canvas);
+        fractionObject.SetActive(false);
     }
 
     public void AssignPikmin()
     {
         currentPikmin++;
-        interactText.enabled = true;
-        interactText.text = $"{currentPikmin}/{pikminNeeded}";
+
+        //UI
+        fractionObject.SetActive(true);
+        fractionObject.transform.GetChild(0).DOComplete();
+        fractionObject.transform.GetChild(0).DOPunchScale(Vector3.one, .3f, 10, 1);
+        fractionObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentPikmin.ToString();
+        fractionObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = pikminNeeded.ToString();
 
         if (currentPikmin == pikminNeeded)
             Interact();
@@ -43,9 +53,14 @@ public class InteractiveObject : MonoBehaviour
         currentPikmin--;
 
         if (currentPikmin == 0)
-            interactText.enabled = false;
+        {
+            fractionObject.SetActive(false);
+        }
         else
-            interactText.text = $"{currentPikmin}/{pikminNeeded}";
+        {
+            fractionObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentPikmin.ToString();
+            fractionObject.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = pikminNeeded.ToString();
+        }
 
         if (currentPikmin < pikminNeeded)
             StopInteract();

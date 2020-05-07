@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LiberationSans SDF Material
   m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: OUTLINE_ON UNDERLAY_ON
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -30,7 +30,7 @@ Material:
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _OutlineSoftness: 0
-    - _OutlineWidth: 0
+    - _OutlineWidth: 0.204
     - _PerspectiveFilter: 0.875
     - _ScaleRatioA: 0.9
     - _ScaleRatioB: 1
@@ -47,9 +47,9 @@ Material:
     - _TextureHeight: 1024
     - _TextureWidth: 1024
     - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlayOffsetX: 0.727
+    - _UnderlayOffsetY: -0.556
+    - _UnderlaySoftness: 0.245
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -57,7 +57,7 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -69,9 +69,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LiberationSans SDF
+  m_Name: LiberationSans SDF 1
   m_EditorClassIdentifier: 
-  hashCode: 231247347
+  hashCode: -1574708510
   material: {fileID: 2180264}
   materialHashCode: -1183942120
   m_Version: 1.1.0

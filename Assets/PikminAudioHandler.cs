@@ -27,6 +27,7 @@ public class PikminAudioHandler : MonoBehaviour
 
     public void OnStartFollow(int num)
     {
+        carrySource.Stop();
         generalSource.PlayOneShot(noticeSound);
     }
 

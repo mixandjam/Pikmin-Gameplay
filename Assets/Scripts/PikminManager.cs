@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.Animations.Rigging;
 
 [System.Serializable] public class PikminEvent : UnityEvent<int> { }
 [System.Serializable] public class PlayerEvent : UnityEvent<Vector3> { }
@@ -12,7 +13,6 @@ using DG.Tweening;
 public class PikminManager : MonoBehaviour
 {
     private MovementInput charMovement;
-    private Pikmin currentPikmin;
 
     [Header("Positioning")]
     public Transform pikminThrowPosition;
@@ -33,6 +33,9 @@ public class PikminManager : MonoBehaviour
     private List<Pikmin> allPikmin = new List<Pikmin>();
     private int controlledPikmin = 0;
 
+    public Rig whistleRig;
+    public ParticleSystem whistlePlayerParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,17 @@ public class PikminManager : MonoBehaviour
             spawner.SpawnPikmin(pikminPrefab, ref allPikmin);
         }
     }
+
+    public void SetWhistleRadius(float radius)
+    {
+        selectionRadius = radius;
+    }
+
+    public void SetWhistleRigWeight(float weight)
+    {
+        whistleRig.weight = weight;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -51,6 +65,34 @@ public class PikminManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            whistlePlayerParticle.Play();
+            controller.audio.Play();
+            DOVirtual.Float(0, (5/2) + .5f, .5f, SetWhistleRadius).SetId(2);
+            DOVirtual.Float(0, 1, .2f, SetWhistleRigWeight).SetId(1);
+
+            charMovement.transform.GetChild(0).DOScaleY(27f, .05f).SetLoops(-1, LoopType.Yoyo).SetId(3);
+
+            controller.visualCylinder.localScale = Vector3.zero;
+            controller.visualCylinder.DOScaleX(5, .5f);
+            controller.visualCylinder.DOScaleZ(5, .5f);
+            controller.visualCylinder.DOScaleY(2, .4f).SetDelay(.4f);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            whistlePlayerParticle.Stop();
+            controller.audio.Stop(); DOTween.Kill(2); DOTween.Kill(1); DOTween.Kill(3);
+            charMovement.transform.GetChild(0).DOScaleY(28, .1f);
+            DOVirtual.Float(whistleRig.weight, 0, .2f, SetWhistleRigWeight);
+            selectionRadius = 0;
+            controller.visualCylinder.DOKill();
+            controller.visualCylinder.DOScaleX(0, .2f);
+            controller.visualCylinder.DOScaleZ(0, .2f);
+            controller.visualCylinder.DOScaleY(0f, .05f);
+        }
 
         if (Input.GetMouseButton(1))
         {
@@ -114,4 +156,5 @@ public class PikminManager : MonoBehaviour
             }
         }
     }
+
 }

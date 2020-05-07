@@ -11,7 +11,12 @@ public class PikminController : MonoBehaviour
     [SerializeField] private Vector3 targetOffset = Vector3.zero;
     private Camera cam = default;
     private LineRenderer line = default;
+    public AudioSource audio;
     const int linePoints = 5;
+
+    [Header("Visual")]
+    public Transform visualCylinder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +28,7 @@ public class PikminController : MonoBehaviour
     void Update()
     {
         UpdateMousePosition();
+        visualCylinder.transform.position = target.position;
     }
 
     void UpdateMousePosition()

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
@@ -8,6 +7,7 @@ using DG.Tweening;
 public class Pikmin : MonoBehaviour
 {
     public enum State { Idle, Follow, Interact }
+
     [HideInInspector]
     public NavMeshAgent agent = default;
     private Coroutine updateTarget = default;
@@ -15,7 +15,6 @@ public class Pikmin : MonoBehaviour
     public InteractiveObject objective;
     public bool isFlying;
     public bool isGettingIntoPosition;
-    private Animator anim;
 
     public PikminEvent OnStartFollow;
     public PikminEvent OnStartThrow;
@@ -28,7 +27,6 @@ public class Pikmin : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         visualHandler = GetComponent<PikminVisualHandler>();
-        anim = GetComponent<Animator>();
     }
     public void SetTarget(Transform target, float updateTime = 1f)
     {

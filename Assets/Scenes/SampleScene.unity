@@ -15883,7 +15883,7 @@ PrefabInstance:
     - target: {fileID: 7628738084953084587, guid: ab30ab3fe592eb342952363e3a9210ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.438
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7628738084953084587, guid: ab30ab3fe592eb342952363e3a9210ba,
         type: 3}
@@ -40687,6 +40687,12 @@ MonoBehaviour:
     m_MaintainTargetRotationOffset: 0
   m_SourceObjectsGUIToggle: 1
   m_SettingsGUIToggle: 1
+--- !u!82 &1090040037 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2006641262226666001, guid: b729d9f87e0f4ec4299b9470e2118c20,
+    type: 3}
+  m_PrefabInstance: {fileID: 2036669455}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1143768500
 GameObject:
   m_ObjectHideFlags: 0
@@ -46696,6 +46702,86 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1090040037}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayOneShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.AudioClip, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnStartFollow.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8300000, guid: 9cd7cfeba975f0a408b389d14bf12c25, type: 3}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9155750092216424442, guid: b729d9f87e0f4ec4299b9470e2118c20,
+        type: 3}
+      propertyPath: OnScruffyStart.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b729d9f87e0f4ec4299b9470e2118c20, type: 3}
 --- !u!1001 &2041416673
@@ -51757,7 +51843,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 3.16e-42, y: 1.01e-43, z: 0.0000000018773108, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

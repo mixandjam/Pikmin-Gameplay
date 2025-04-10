@@ -6,7 +6,7 @@
 # Pikmin's Gameplay | Mix and Jam [![Discord Chat](https://img.shields.io/discord/308323056592486420.svg)](https://discord.gg/PwCzrBX) <a href="https://patreon.com/mixandjam"><img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fmixandjam" /></a>
 
 <p align="center">
-<img width="900px" src="http://mixandjam.com/wp-content/uploads/2020/05/Untitled-700x353.png">
+<img width="900px" src="https://github.com/mixandjam/Pikmin-Gameplay/blob/master/git-banner.png">
 </p>
 
 This is the official respository for the episode <b>#24</b> of the [Mix and Jam Youtube Channel](https://www.youtube.com/c/MixAndJam)!
